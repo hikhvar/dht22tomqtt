@@ -5,3 +5,8 @@ room temperature in several rooms.
 
 ## Configuration
 To set your config, copy the file `configvariables.h.dist` to `configvariables.h` and edit the values you need.
+
+## Hardware
+The `docs` directory contains a frizz file for the hardware setup. The breadboard setup looks like this:
+
+![BreadboardSetup](docs/breadboard.png)
