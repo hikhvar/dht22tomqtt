@@ -1,0 +1,6 @@
+#define WIFI_AP "WIFI_SSID" // Your local network
+#define WIFI_PASSWORD "WIFI_PASSWORD" // Your local WiFi Password
+
+#define MQTT_TOKEN "ESP8266_DEMO_TOKEN"
+#define MQTT_BROKER "MQTT_BROKER_IP"
+#define MQTT_TOPIC "MQTT_TOPIC"
