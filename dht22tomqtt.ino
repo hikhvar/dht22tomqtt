@@ -116,7 +116,7 @@ void reconnect() {
     }
     Serial.print("Connecting to MQTT Broker ...");
     // Attempt to connect (clientId, username, password)
-    if ( client.connect("ESP8266 Device", MQTT_TOKEN, NULL) ) {
+    if ( client.connect(MQTT_CLIENT_ID, MQTT_TOKEN, NULL) ) {
       Serial.println( "[DONE]" );
     } else {
       Serial.print( "[FAILED] [ rc = " );
