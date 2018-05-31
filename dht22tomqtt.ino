@@ -15,10 +15,11 @@
 #define DHTPIN 4
 #define DHTTYPE DHT22
 
-char thingsboardServer[] = MQTT_BROKER;
+char mqttBroker[] = MQTT_BROKER;
 
 WiFiClient wifiClient;
 IPAddress ip;                    // the IP address of your ESP8266
+unsigned long lastSend;
 
 // Initialize DHT sensor.
 DHT dht(DHTPIN, DHTTYPE);
@@ -32,19 +33,25 @@ void setup()
   Serial.begin(9600);
   dht.begin();
   delay(10);
-  client.setServer( thingsboardServer, 1883 );
-  if ( !client.connected() ) {
-    reconnect();
-  }
-  getAndSendTemperatureAndHumidityData();
-  client.loop();
+  client.setServer( mqttBroker, 1883 );
+  
   client.disconnect();
-  Serial.println("Sleep for 60 seconds");
-  ESP.deepSleep(60e6); // 60e6 is 60 seconds in microseconds
+  lastSend = 0;
 }
 
 void loop()
 {
+
+    if ( !client.connected() ) {
+      reconnect();
+    }
+  
+    if ( millis() - lastSend > 60000 ) { // Update and send only after 60 seconds
+      getAndSendTemperatureAndHumidityData();
+      lastSend = millis();
+    }
+    client.loop();
+  
 }
 
 void getAndSendTemperatureAndHumidityData()
